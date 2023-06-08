@@ -1,19 +1,20 @@
 import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
 import "./App.css";
-import { Button } from "@mui/material";
+import AppBarHeader from "./components/Navbar/AppBarHeader";
+import HeroSection from "./components/Hero/HeroSection";
+import Learn from "./components/Section/Learn";
+import Features from "./components/Section/Features";
+// import CustomImageList from "./components/Gallery/CustomImageList";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <Button variant="text">Text</Button>
-      <Button variant="contained" sx={{ m: 1 }}>
-        Contained
-      </Button>
-      <Button variant="outlined">Outlined</Button>
+      <AppBarHeader />
+      <HeroSection />
+      <Features />
+
+      <Learn />
+      {/* <CustomImageList /> */}
     </>
   );
 }
