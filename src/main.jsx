@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import NotFound from "./pages/Restricted/NotFound.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
+import AuthProvider from "./provider/AuthProvider.jsx";
 
 const theme = createTheme({
   palette: {
@@ -23,7 +24,7 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 8, // Set your desired border radius value here
+    borderRadius: 8,
   },
 });
 
@@ -49,7 +50,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

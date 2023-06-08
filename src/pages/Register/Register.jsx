@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -11,6 +11,10 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import { Visibility, VisibilityOff, Google } from "@mui/icons-material";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
+import SocialLoginWithRegistration from "../hook/SocialLoginWithRegistration";
 
 const NeedPadding = styled(Box)`
   padding-left: 80px;
@@ -46,29 +50,54 @@ const StyledLink = styled(Link)`
 `;
 
 function Register() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
 
-    // Perform form submission logic here
-    console.log("Form submitted");
-    console.log("First Name:", firstName);
-    console.log("Last Name:", lastName);
-    console.log("Email:", email);
-    console.log("Password:", password);
-    console.log("Confirm Password:", confirmPassword);
+  const navigate = useNavigate();
 
-    // Reset form fields
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+  const { registerUser, updateUserProfile } = useContext(AuthContext);
+
+  const onSubmit = (data) => {
+    console.log(data);
+    registerUser(data.email, data.password).then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      updateUserProfile(data.name, data.photoURL)
+        .then(() => {
+          const saveUser = { name: data.name, email: data.email };
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(saveUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.insertedId) {
+                console.log("user profile info updated");
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User created successfully.",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            });
+        })
+        .catch((error) => console.log(error));
+    });
   };
 
   const handleTogglePassword = () => {
@@ -110,21 +139,21 @@ function Register() {
               <StyledLink to="/login">Sign in</StyledLink>
             </Typography>
           </Box>
-          <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+          <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
             <Box mb={3} display={"flex"} sx={{ gap: "15px" }}>
               <TextField
                 label="First Name"
                 type="text"
                 fullWidth
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                {...register("name", { required: true })}
+                name="name"
               />
               <TextField
                 label="Last Name"
                 type="text"
                 fullWidth
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                {...register("lastName", { required: true })}
+                name="lastName"
               />
             </Box>
             <Box mb={3}>
@@ -132,17 +161,26 @@ function Register() {
                 label="Email address"
                 type="email"
                 fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email", { required: true })}
+                name="email"
               />
+              {errors.email && (
+                <Typography variant="body2" color="error">
+                  Email is required
+                </Typography>
+              )}
             </Box>
             <Box mb={3}>
               <TextField
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 fullWidth
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                  maxLength: 20,
+                  pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
+                })}
               />
             </Box>
             <Box mb={3}>
@@ -162,6 +200,28 @@ function Register() {
                   ),
                 }}
               />
+
+              {errors.password?.type === "required" && (
+                <Typography variant="body2" color="error">
+                  Password is required
+                </Typography>
+              )}
+              {errors.password?.type === "minLength" && (
+                <Typography variant="body2" color="error">
+                  Password must be at least 6 characters
+                </Typography>
+              )}
+              {errors.password?.type === "maxLength" && (
+                <Typography variant="body2" color="error">
+                  Password must be less than 20 characters
+                </Typography>
+              )}
+              {errors.password?.type === "pattern" && (
+                <Typography variant="body2" color="error">
+                  Password must have one uppercase letter, one lowercase letter,
+                  one number, and one special character.
+                </Typography>
+              )}
             </Box>
             <Typography
               variant="subtitle2"
@@ -179,13 +239,10 @@ function Register() {
                 fullWidth
                 sx={{ padding: "16px" }}
               >
-                Login
+                Register
               </Button>
               <Box mt={2}>
-                <GoogleButton onClick={handleGoogleRegister} fullWidth>
-                  <Google />
-                  Register with Google
-                </GoogleButton>
+                <SocialLoginWithRegistration />
               </Box>
             </Box>
           </form>

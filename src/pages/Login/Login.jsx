@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -11,6 +11,10 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import { Visibility, VisibilityOff, Google } from "@mui/icons-material";
+import SocialLoginWithRegistration from "../hook/SocialLoginWithRegistration";
+import { useForm } from "react-hook-form";
+import { AuthContext } from "../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const NeedPadding = styled(Box)`
   padding-left: 80px;
@@ -46,40 +50,59 @@ const StyledLink = styled(Link)`
 `;
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
+  const { signIn } = useContext(AuthContext);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-    // Perform form submission logic here
-    console.log("Form submitted");
-    console.log("Email:", email);
-    console.log("Password:", password);
+  const from = location.state?.from?.pathname || "/";
 
-    // Reset form fields
-    setEmail("");
-    setPassword("");
+  const onSubmit = (data) => {
+    const { email, password } = data;
+
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+
+        Swal.fire({
+          title: "User Login Successful.",
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+        });
+
+        reset(); // Reset the form after successful submission
+
+        // Navigate to the desired location
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        if (error.code === "auth/wrong-password") {
+          alert("Wrong password");
+        } else {
+          console.log("Firebase Error:", error.message);
+          // Display a generic error message or handle other Firebase errors
+        }
+      });
   };
 
   const handleTogglePassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleGoogleLogin = () => {
-    // Handle Google login logic here
-    console.log("Logging in with Google");
-  };
   return (
-    <Grid
-      container
-      spacing={2}
-      justifyContent="center"
-      alignItems="center"
-      //   py={8}
-    >
+    <Grid container spacing={2} justifyContent="center" alignItems="center">
       <Grid item xs={12} sm={6}>
         <img
           src={`https://i.ibb.co/WPJFwCC/illustration-dashboard.png`}
@@ -99,27 +122,29 @@ function Login() {
               mb={5}
               sx={{ gap: "10px" }}
             >
-              New user?{" "}
+              New user?
               <StyledLink to="/register">Create an account</StyledLink>
             </Typography>
           </Box>
-          <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+          <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
             <Box mb={3}>
               <TextField
                 label="Email address"
                 type="email"
                 fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email", { required: true })}
               />
+
+              {errors.email && (
+                <Typography color={"error"}>Email is required</Typography>
+              )}
             </Box>
             <Box mb={3}>
               <TextField
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 fullWidth
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password", { required: true })}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -130,6 +155,10 @@ function Login() {
                   ),
                 }}
               />
+
+              {errors.password && (
+                <Typography color={"error"}>Password is required</Typography>
+              )}
             </Box>
             <Typography
               variant="subtitle2"
@@ -150,10 +179,7 @@ function Login() {
                 Login
               </Button>
               <Box mt={2}>
-                <GoogleButton onClick={handleGoogleLogin} fullWidth>
-                  <Google />
-                  Login with Google
-                </GoogleButton>
+                <SocialLoginWithRegistration />
               </Box>
             </Box>
           </form>

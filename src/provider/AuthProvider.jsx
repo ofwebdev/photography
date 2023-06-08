@@ -20,10 +20,17 @@ function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const register = (email, password) => {
+  const registerUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password).catch(
       (error) => console.log(error)
     );
+  };
+
+  const updateUserProfile = (name, photo) => {
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
   };
 
   const sentEmailLink = () => {
@@ -67,7 +74,8 @@ function AuthProvider({ children }) {
   const authInfo = {
     user,
     loading,
-    register,
+    registerUser,
+    updateUserProfile,
     sentEmailLink,
     signIn,
     signInWithGitHub,
