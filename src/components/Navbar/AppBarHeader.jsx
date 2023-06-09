@@ -16,6 +16,10 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { Link } from "react-router-dom";
+import { Avatar, Button } from "@mui/material";
+import DarkModeToggle from "../Dark/DarkModeToggle";
+
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,6 +65,21 @@ export default function AppBarHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const { user, logOut } = React.useContext(AuthContext);
+
+  console.log(user);
+
+  const logoutHandler = () => {
+    logOut()
+      .then(() => {
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 1000);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -98,9 +117,18 @@ export default function AppBarHeader() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to={"/profile"}>Profile</Link>
+      <MenuItem component={Link} to={"/profile"} onClick={handleMenuClose}>
+        {user ? (
+          <Typography>{user.displayName}</Typography>
+        ) : (
+          <Typography>Guest</Typography>
+        )}
       </MenuItem>
+
+      <MenuItem component={Link} to="/" color="inherit">
+        Your selected class
+      </MenuItem>
+
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
@@ -122,53 +150,71 @@ export default function AppBarHeader() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
+      <MenuItem component={Link} to="/" color="inherit">
+        Home
       </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
+      <MenuItem component={Link} to="/instructors" color="inherit">
+        Instructors
       </MenuItem>
+      <MenuItem component={Link} to="/classes" color="inherit">
+        Classes
+      </MenuItem>
+      {user && (
+        <MenuItem component={Link} to="/dashboard" color="inherit">
+          Dashboard
+        </MenuItem>
+      )}
+
+      {user ? (
+        <MenuItem onClick={logoutHandler} component={Link} color="inherit">
+          Logout
+        </MenuItem>
+      ) : (
+        <MenuItem component={Link} to="/login" color="inherit">
+          Login
+        </MenuItem>
+      )}
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
+          edge="end"
           aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
+          aria-controls={menuId}
           aria-haspopup="true"
+          onClick={handleProfileMenuOpen}
           color="inherit"
+          sx={{ paddingLeft: 0, marginRight: "1px" }}
         >
-          <AccountCircle />
+          {user ? (
+            <div>
+              {user.photoURL && (
+                <Avatar
+                  alt={user.displayName}
+                  src={user.photoURL}
+                  sx={{ width: 30, height: 30, borderRadius: "50%" }}
+                />
+              )}
+            </div>
+          ) : (
+            <AccountCircle />
+          )}
         </IconButton>
-        <p>Profile</p>
+        <Typography>Profile</Typography>
       </MenuItem>
     </Menu>
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1 }} alignItems={"center"}>
       <AppBar position="static">
         <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "none", sm: "block" } }}
-          >
-            MUI
-          </Typography>
+          <img
+            src={
+              "https://phero-web.nyc3.cdn.digitaloceanspaces.com/website-prod-images/public/files/1673291260756.png"
+            }
+            style={{ width: "50px", height: "50px", marginRight: "15px" }}
+            alt=""
+          />
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
@@ -180,24 +226,36 @@ export default function AppBarHeader() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-            <IconButton
-              size="large"
-              aria-label="show 4 new mails"
-              color="inherit"
-            >
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <MenuItem component={Link} to="/" color="inherit">
+              Home
+            </MenuItem>
+            <MenuItem component={Link} to="/instructors" color="inherit">
+              Instructors
+            </MenuItem>
+            <MenuItem component={Link} to="/classes" color="inherit">
+              Classes
+            </MenuItem>
+            {user && (
+              <MenuItem component={Link} to="/dashboard" color="inherit">
+                Dashboard
+              </MenuItem>
+            )}
+
+            {user ? (
+              <MenuItem
+                onClick={logoutHandler}
+                component={Link}
+                color="inherit"
+              >
+                Logout
+              </MenuItem>
+            ) : (
+              <MenuItem component={Link} to="/login" color="inherit">
+                Login
+              </MenuItem>
+            )}
+
+            <DarkModeToggle />
             <IconButton
               size="large"
               edge="end"
@@ -207,7 +265,19 @@ export default function AppBarHeader() {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              {user ? (
+                <div>
+                  {user.photoURL && (
+                    <Avatar
+                      alt={user.displayName}
+                      src={user.photoURL}
+                      sx={{ width: 30, height: 30, borderRadius: "50%" }}
+                    />
+                  )}
+                </div>
+              ) : (
+                <AccountCircle />
+              )}
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

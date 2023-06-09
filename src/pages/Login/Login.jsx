@@ -179,7 +179,7 @@ function Login() {
                 Login
               </Button>
               <Box mt={2}>
-                <SocialLoginWithRegistration />
+                <SocialLoginWithRegistration login={"Login"} />
               </Box>
             </Box>
           </form>

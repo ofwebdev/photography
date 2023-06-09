@@ -24,7 +24,7 @@ const GoogleButton = styled(Button)`
   }
 `;
 
-const SocialLoginWithRegistration = () => {
+const SocialLoginWithRegistration = ({ login }) => {
   const { signInWithGmail } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
@@ -59,7 +59,7 @@ const SocialLoginWithRegistration = () => {
       <div className="w-full text-center my-4">
         <GoogleButton onClick={handleGoogleLog} fullWidth>
           <Google />
-          Register with Google
+          {login === "Login" ? "Login" : "Register"} with Google
         </GoogleButton>
       </div>
     </div>

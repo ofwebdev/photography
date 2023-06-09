@@ -242,7 +242,7 @@ function Register() {
                 Register
               </Button>
               <Box mt={2}>
-                <SocialLoginWithRegistration />
+                <SocialLoginWithRegistration login={"Register"} />
               </Box>
             </Box>
           </form>

@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "title": "Nature Photography",
+    "image": "https://www.lukas-petereit.com/wp-content/uploads/2017/10/Rakotzbr%C3%BCcke-Bridge-Rakotz-Kromlau-Lake-Sun-Sunrise-Landscape-Reflection-Germany-Saxony-Travel-Photography-Nature-Photo-Spreewald-2.jpg",
+    "students": 150,
+    "popular": true
+  },
+  {
+    "id": 2,
+    "title": "Portrait Photography",
+    "image": "https://iso.500px.com/wp-content/uploads/2020/08/stock-photo-240662573.jpg",
+    "students": 120,
+    "popular": true
+  },
+  {
+    "id": 3,
+    "title": "Landscape Photography",
+    "image": "https://photographylife.com/wp-content/uploads/2016/06/Mass.jpg",
+    "students": 100,
+    "popular": true
+  },
+  {
+    "id": 4,
+    "title": "Wildlife Photography",
+    "image": "https://i.ibb.co/6FZhT2H/3583.webp",
+    "students": 90,
+    "popular": true
+  },
+  {
+    "id": 5,
+    "title": "Street Photography",
+    "image": "https://andrewstuder.com/wp-content/uploads/2020/04/AF3I6586-2-scaled.jpg",
+    "students": 80,
+    "popular": true
+  },
+  {
+    "id": 6,
+    "title": "Product Photography",
+    "image": "https://images.squarespace-cdn.com/content/v1/5432e8d7e4b0fd126503b83b/1605641463454-ICUGNN9VUF2AP6HZ3W7O/high+speed+cosmetic+splash+from+london+product+photographer+.jpg",
+    "students": 75,
+    "popular": true
+  },
+  {
+    "id": 7,
+    "title": "Fashion Photography",
+    "image": "fashion_photography.jpg",
+    "students": 70,
+    "popular": false
+  },
+  {
+    "id": 8,
+    "title": "Black and White Photography",
+    "image": "bw_photography.jpg",
+    "students": 65,
+    "popular": false
+  },
+  {
+    "id": 9,
+    "title": "Macro Photography",
+    "image": "macro_photography.jpg",
+    "students": 60,
+    "popular": false
+  },
+  {
+    "id": 10,
+    "title": "Architectural Photography",
+    "image": "architecture_photography.jpg",
+    "students": 55,
+    "popular": false
+  },
+  {
+    "id": 11,
+    "title": "Aerial Photography",
+    "image": "aerial_photography.jpg",
+    "students": 50,
+    "popular": false
+  },
+  {
+    "id": 12,
+    "title": "Night Photography",
+    "image": "night_photography.jpg",
+    "students": 45,
+    "popular": false
+  },
+  {
+    "id": 13,
+    "title": "Event Photography",
+    "image": "event_photography.jpg",
+    "students": 40,
+    "popular": false
+  },
+  {
+    "id": 14,
+    "title": "Mobile Photography",
+    "image": "mobile_photography.jpg",
+    "students": 35,
+    "popular": false
+  },
+  {
+    "id": 15,
+    "title": "HDR Photography",
+    "image": "hdr_photography.jpg",
+    "students": 30,
+    "popular": false
+  },
+  {
+    "id": 16,
+    "title": "Fine Art Photography",
+    "image": "fineart_photography.jpg",
+    "students": 25,
+    "popular": false
+  }
+]
