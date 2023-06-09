@@ -44,70 +44,70 @@
   {
     "id": 7,
     "title": "Fashion Photography",
-    "image": "fashion_photography.jpg",
+    "image": "https://static.bhphotovideo.com/explora/sites/default/files/TS-CTV-2589-Best-Gear-for-Fashion-Photography.jpg",
     "students": 70,
     "popular": false
   },
   {
     "id": 8,
     "title": "Black and White Photography",
-    "image": "bw_photography.jpg",
+    "image": "https://weburbanist.com/wp-content/uploads/2008/11/marcus-puschmann-black-and-white-photograph-4.jpg",
     "students": 65,
     "popular": false
   },
   {
     "id": 9,
     "title": "Macro Photography",
-    "image": "macro_photography.jpg",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Scatophaga_stercoraria_macro_Luc_Viatour.jpg",
     "students": 60,
     "popular": false
   },
   {
     "id": 10,
     "title": "Architectural Photography",
-    "image": "architecture_photography.jpg",
+    "image": "https://www.dexigner.com/images/directory/xi/19019.jpg",
     "students": 55,
     "popular": false
   },
   {
     "id": 11,
     "title": "Aerial Photography",
-    "image": "aerial_photography.jpg",
+    "image": "https://idsb.tmgrup.com.tr/2016/02/15/1455543492276.jpg",
     "students": 50,
     "popular": false
   },
   {
     "id": 12,
     "title": "Night Photography",
-    "image": "night_photography.jpg",
+    "image": "https://expertphotography.b-cdn.net/wp-content/uploads/2019/02/night-photography-3.jpg",
     "students": 45,
     "popular": false
   },
   {
     "id": 13,
     "title": "Event Photography",
-    "image": "event_photography.jpg",
+    "image": "https://img.freepik.com/premium-photo/photographer-is-woman-photographing-wedding-ceremony_199620-10733.jpg",
     "students": 40,
     "popular": false
   },
   {
     "id": 14,
     "title": "Mobile Photography",
-    "image": "mobile_photography.jpg",
+    "image": "https://i.ibb.co/qsq9TZs/Tips-mobile-phone-photography.png",
     "students": 35,
     "popular": false
   },
   {
     "id": 15,
     "title": "HDR Photography",
-    "image": "hdr_photography.jpg",
+    "image": "https://i.ibb.co/PxKWDZM/11.webp",
     "students": 30,
     "popular": false
   },
   {
     "id": 16,
     "title": "Fine Art Photography",
-    "image": "fineart_photography.jpg",
+    "image": "https://static.wixstatic.com/media/4674af_11961e5e1172462191da5c81337d8f91~mv2.jpg/v1/fill/w_1409,h_1047,al_c/4674af_11961e5e1172462191da5c81337d8f91~mv2.jpg",
     "students": 25,
     "popular": false
   }

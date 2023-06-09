@@ -10,6 +10,8 @@ import NotFound from "./pages/Restricted/NotFound.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Register from "./pages/Register/Register.jsx";
 import AuthProvider from "./provider/AuthProvider.jsx";
+import PopularClassesSection from "./components/Popular/PopularClassesSection.jsx";
+import Dashboard from "./components/Dashboard/Dashboard.jsx";
 
 const theme = createTheme({
   palette: {
@@ -54,6 +56,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/classes",
+    element: <PopularClassesSection />,
   },
   {
     path: "/login",

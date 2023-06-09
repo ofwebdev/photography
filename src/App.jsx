@@ -6,17 +6,20 @@ import Learn from "./components/Section/Learn";
 import Features from "./components/Section/Features";
 import Footer from "./components/Footer/Footer";
 import { CssBaseline } from "@mui/material";
-import DarkModeToggle from "./components/Dark/DarkModeToggle";
+import CustomImageList from "./components/Gallery/ImgMediaCard";
+import Container from "@mui/material/Container";
 
 function App() {
   return (
     <>
       <CssBaseline />
-      <AppBarHeader />
-      <HeroSection />
-      <Features />
-
-      <Learn />
+      <Container maxWidth="xl">
+        <AppBarHeader />
+        <HeroSection />
+        <Features />
+        <CustomImageList />
+        <Learn />
+      </Container>
       <Footer />
     </>
   );
