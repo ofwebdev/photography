@@ -24,6 +24,7 @@ import PopularClassesSection from "./components/Popular/PopularClassesSection.js
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import AllUser from "./components/Dashboard/AllUser.jsx";
 import AddClass from "./components/Dashboard/AddClass.jsx";
+import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
 
 const theme = createTheme({
   palette: {
@@ -71,7 +72,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
 
     children: [
       {

@@ -24,6 +24,8 @@ const StyledNavButton = styled(Button)`
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
 
+  const isAdmin = false;
+
   return (
     <Grid container spacing={2}>
       {/* Left Side - User Image, User Name, and Link */}
@@ -76,61 +78,80 @@ const Dashboard = () => {
             </div>
           </Box>
 
-          <Box
-            display="flex"
-            alignItems="flex-start"
-            flexDirection={"column"}
-            p={2}
-          >
-            <StyledNavButton component={Link} to="/dashboard">
-              <SpaceDashboardIcon sx={{ fontSize: 24, pr: 2 }} />
-              Dashboard
-            </StyledNavButton>
+          {isAdmin ? (
+            <>
+              <Box
+                display="flex"
+                alignItems="flex-start"
+                flexDirection={"column"}
+                p={2}
+              >
+                <StyledNavButton component={Link} to="/dashboard">
+                  <SpaceDashboardIcon sx={{ fontSize: 24, pr: 2 }} />
+                  Dashboard
+                </StyledNavButton>
 
-            <StyledNavButton
-              component={Link}
-              to="/profile"
-              sx={{ "&.active": { color: "red" } }}
-            >
-              <PersonIcon sx={{ fontSize: 24, pr: 2 }} />
-              Profile
-            </StyledNavButton>
+                <StyledNavButton
+                  component={Link}
+                  to="/dashboard/addclass"
+                  sx={{ "&.active": { color: "red" } }}
+                >
+                  <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                  Add class
+                </StyledNavButton>
 
-            <StyledNavButton
-              component={Link}
-              to="/dashboard/addclass"
-              sx={{ "&.active": { color: "red" } }}
-            >
-              <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
-              Add class
-            </StyledNavButton>
+                <StyledNavButton
+                  component={Link}
+                  to="/dashboard/allusers"
+                  sx={{ "&.active": { color: "red" } }}
+                >
+                  <ManageAccountsIcon sx={{ fontSize: 24, pr: 2 }} />
+                  User
+                </StyledNavButton>
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box
+                display="flex"
+                alignItems="flex-start"
+                flexDirection={"column"}
+                p={2}
+              >
+                <StyledNavButton component={Link} to="/dashboard">
+                  <SpaceDashboardIcon sx={{ fontSize: 24, pr: 2 }} />
+                  Dashboard
+                </StyledNavButton>
 
-            <StyledNavButton
-              component={Link}
-              to="/messages"
-              sx={{ "&.active": { color: "red" } }}
-            >
-              <EmailIcon sx={{ fontSize: 24, pr: 2 }} />
-              Messages
-            </StyledNavButton>
+                <StyledNavButton
+                  component={Link}
+                  to="/profile"
+                  sx={{ "&.active": { color: "red" } }}
+                >
+                  <PersonIcon sx={{ fontSize: 24, pr: 2 }} />
+                  Profile
+                </StyledNavButton>
 
-            <StyledNavButton
-              component={Link}
-              to="/logout"
-              sx={{ "&.active": { color: "red" } }}
-            >
-              <ExitToAppIcon sx={{ fontSize: 24, pr: 2 }} />
-              Logout
-            </StyledNavButton>
-            <StyledNavButton
-              component={Link}
-              to="/dashboard/allusers"
-              sx={{ "&.active": { color: "red" } }}
-            >
-              <ManageAccountsIcon sx={{ fontSize: 24, pr: 2 }} />
-              User
-            </StyledNavButton>
-          </Box>
+                <StyledNavButton
+                  component={Link}
+                  to="/messages"
+                  sx={{ "&.active": { color: "red" } }}
+                >
+                  <EmailIcon sx={{ fontSize: 24, pr: 2 }} />
+                  Messages
+                </StyledNavButton>
+
+                <StyledNavButton
+                  component={Link}
+                  to="/logout"
+                  sx={{ "&.active": { color: "red" } }}
+                >
+                  <ExitToAppIcon sx={{ fontSize: 24, pr: 2 }} />
+                  Logout
+                </StyledNavButton>
+              </Box>
+            </>
+          )}
         </Box>
       </Grid>
 
