@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import Swal from "sweetalert2";
@@ -11,33 +11,82 @@ import {
   TableCell,
   IconButton,
   Box,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  Select,
+  MenuItem,
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import useAxiosSecureInterceptor from "../../hooks/useAxiosSecureInterceptor";
+import useAdmin from "../../hooks/useAdmin";
+
 const AllUsers = () => {
+  // const [isAdmin, isAdminLoading, handleMakeRoleChange] = useAdmin();
+
+  const [axiosSecure] = useAxiosSecureInterceptor();
   const { data: users = [], refetch } = useQuery(["users"], async () => {
-    const res = await fetch("http://localhost:5000/users");
-    return res.json();
+    const res = await axiosSecure("/users");
+    return res.data;
   });
 
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [open, setOpen] = useState(false);
+
   const handleMakeAdmin = (user) => {
-    fetch(`http://localhost:5000/users/admin/${user._id}`, {
-      method: "PATCH",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.modifiedCount) {
-          refetch();
-          Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: `${user.name} is an Admin Now!`,
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      });
+    setSelectedUser(user);
+    setOpen(true);
+  };
+
+  const handleRoleSelection = (event) => {
+    const selectedRole = event.target.value;
+    // handleMakeRoleChange(selectedRole);
+
+    console.log(selectedRole);
+
+    if (selectedUser) {
+      if (selectedUser.role === selectedRole) {
+        // Already assigned the selected role
+        setOpen(false);
+        setSelectedUser(null);
+        return;
+      }
+
+      if (selectedUser.role === "admin") {
+        // Do not allow updating the role of an admin user
+        setOpen(false);
+        setSelectedUser(null);
+        return;
+      }
+
+      fetch(`http://localhost:5000/users/role/${selectedUser._id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ role: selectedRole }), // Use selectedRole instead of role
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.modifiedCount) {
+            refetch();
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: `${selectedUser.name} role is now updated`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          }
+        });
+    }
+
+    setOpen(false);
+    setSelectedUser(null);
   };
 
   const handleDelete = (user) => {
@@ -64,13 +113,11 @@ const AllUsers = () => {
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>
-                {user.role === "admin" ? (
-                  "admin"
-                ) : (
-                  <IconButton onClick={() => handleMakeAdmin(user)}>
-                    <VerifiedUserIcon />
-                  </IconButton>
-                )}
+                {user.role}
+
+                <IconButton onClick={() => handleMakeAdmin(user)}>
+                  <VerifiedUserIcon />
+                </IconButton>
               </TableCell>
               <TableCell>
                 <IconButton onClick={() => handleDelete(user)}>
@@ -81,6 +128,20 @@ const AllUsers = () => {
           ))}
         </TableBody>
       </Table>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>Select Role:</DialogTitle>
+        <DialogContent>
+          <Select
+            value={selectedUser?.role || ""}
+            onChange={handleRoleSelection}
+            fullWidth
+          >
+            <MenuItem value="admin">Admin</MenuItem>
+            <MenuItem value="instructor">Instructor</MenuItem>
+            <MenuItem value="student">Student</MenuItem>
+          </Select>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

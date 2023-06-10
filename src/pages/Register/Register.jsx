@@ -104,10 +104,6 @@ function Register() {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  const handleGoogleRegister = () => {
-    // Handle Google login logic here
-    console.log("Logging in with Google");
-  };
   return (
     <Grid
       container
@@ -142,18 +138,20 @@ function Register() {
           <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
             <Box mb={3} display={"flex"} sx={{ gap: "15px" }}>
               <TextField
-                label="First Name"
+                label="Name"
                 type="text"
                 fullWidth
                 {...register("name", { required: true })}
                 name="name"
               />
+            </Box>
+            <Box mb={3}>
               <TextField
-                label="Last Name"
+                label="Photo Url"
                 type="text"
                 fullWidth
-                {...register("lastName", { required: true })}
-                name="lastName"
+                {...register("photoURL", { required: true })}
+                name="photoURL"
               />
             </Box>
             <Box mb={3}>

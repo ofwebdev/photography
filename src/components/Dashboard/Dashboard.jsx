@@ -10,8 +10,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import styled from "@emotion/styled";
-import AllUser from "./AllUser";
-import AddClass from "./AddClass";
+import useAdmin from "../../hooks/useAdmin";
+import useInstructor from "../../hooks/useInstructor";
 
 const StyledNavButton = styled(Button)`
   width: 100%;
@@ -23,8 +23,18 @@ const StyledNavButton = styled(Button)`
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const [isInstructor, isInstructorLoading] = useInstructor(); // Set this based on the user's instructor status
 
-  const isAdmin = true;
+  if (isAdminLoading) {
+    // Loading state
+    return <div>Loading...</div>;
+  }
+
+  if (isInstructorLoading) {
+    // Loading state
+    return <div>Loading...</div>;
+  }
 
   return (
     <Grid container spacing={2}>
@@ -78,84 +88,70 @@ const Dashboard = () => {
             </div>
           </Box>
 
-          {isAdmin ? (
-            <>
-              <Box
-                display="flex"
-                alignItems="flex-start"
-                flexDirection={"column"}
-                p={2}
+          {isAdmin && (
+            <Box
+              display="flex"
+              alignItems="flex-start"
+              flexDirection={"column"}
+              p={2}
+            >
+              <StyledNavButton component={Link} to="/dashboard">
+                <SpaceDashboardIcon sx={{ fontSize: 24, pr: 2 }} />
+                Dashboard
+              </StyledNavButton>
+              <StyledNavButton
+                component={Link}
+                to="/dashboard/allclasses"
+                sx={{ "&.active": { color: "red" } }}
               >
-                <StyledNavButton component={Link} to="/dashboard">
-                  <SpaceDashboardIcon sx={{ fontSize: 24, pr: 2 }} />
-                  Dashboard
-                </StyledNavButton>
+                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                Manage classes
+              </StyledNavButton>
 
-                <StyledNavButton
-                  component={Link}
-                  to="/dashboard/addclass"
-                  sx={{ "&.active": { color: "red" } }}
-                >
-                  <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
-                  Add class
-                </StyledNavButton>
-
-                <StyledNavButton
-                  component={Link}
-                  to="/dashboard/allusers"
-                  sx={{ "&.active": { color: "red" } }}
-                >
-                  <ManageAccountsIcon sx={{ fontSize: 24, pr: 2 }} />
-                  User
-                </StyledNavButton>
-              </Box>
-            </>
-          ) : (
-            <>
-              <Box
-                display="flex"
-                alignItems="flex-start"
-                flexDirection={"column"}
-                p={2}
+              <StyledNavButton
+                component={Link}
+                to="/dashboard/allusers"
+                sx={{ "&.active": { color: "red" } }}
               >
-                <StyledNavButton component={Link} to="/dashboard">
-                  <SpaceDashboardIcon sx={{ fontSize: 24, pr: 2 }} />
-                  Dashboard
-                </StyledNavButton>
+                <ManageAccountsIcon sx={{ fontSize: 24, pr: 2 }} />
+                Manage User
+              </StyledNavButton>
+            </Box>
+          )}
 
-                <StyledNavButton
-                  component={Link}
-                  to="/profile"
-                  sx={{ "&.active": { color: "red" } }}
-                >
-                  <PersonIcon sx={{ fontSize: 24, pr: 2 }} />
-                  Profile
-                </StyledNavButton>
+          {isInstructor && (
+            <Box
+              display="flex"
+              alignItems="flex-start"
+              flexDirection="column"
+              p={2}
+            >
+              <StyledNavButton component={Link} to="/dashboard">
+                <SpaceDashboardIcon sx={{ fontSize: 24, pr: 2 }} />
+                Dashboard
+              </StyledNavButton>
 
-                <StyledNavButton
-                  component={Link}
-                  to="/messages"
-                  sx={{ "&.active": { color: "red" } }}
-                >
-                  <EmailIcon sx={{ fontSize: 24, pr: 2 }} />
-                  Messages
-                </StyledNavButton>
+              <StyledNavButton
+                component={Link}
+                to="/dashboard/addclass"
+                sx={{ "&.active": { color: "red" } }}
+              >
+                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                Add class
+              </StyledNavButton>
 
-                <StyledNavButton
-                  component={Link}
-                  to="/logout"
-                  sx={{ "&.active": { color: "red" } }}
-                >
-                  <ExitToAppIcon sx={{ fontSize: 24, pr: 2 }} />
-                  Logout
-                </StyledNavButton>
-              </Box>
-            </>
+              <StyledNavButton
+                component={Link}
+                to="/dashboard/myclass"
+                sx={{ "&.active": { color: "red" } }}
+              >
+                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                My class
+              </StyledNavButton>
+            </Box>
           )}
         </Box>
       </Grid>
-
-      {/* Right Side - Content */}
       <Outlet />
     </Grid>
   );

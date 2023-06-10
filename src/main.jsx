@@ -25,6 +25,7 @@ import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import AllUser from "./components/Dashboard/AllUser.jsx";
 import AddClass from "./components/Dashboard/AddClass.jsx";
 import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
+import AdminRoute from "./PrivateRoute/AdminRoute.jsx";
 
 const theme = createTheme({
   palette: {
@@ -81,7 +82,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "allusers",
-        element: <AllUser></AllUser>,
+        element: (
+          <AdminRoute>
+            <AllUser></AllUser>
+          </AdminRoute>
+        ),
       },
       {
         path: "addclass",
