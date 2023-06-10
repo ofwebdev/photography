@@ -24,7 +24,7 @@ const StyledNavButton = styled(Button)`
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
 
-  const isAdmin = false;
+  const isAdmin = true;
 
   return (
     <Grid container spacing={2}>
