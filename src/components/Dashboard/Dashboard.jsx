@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import { AccountCircle } from "@mui/icons-material";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
@@ -10,6 +10,8 @@ import EmailIcon from "@mui/icons-material/Email";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import styled from "@emotion/styled";
+import AllUser from "./AllUser";
+import AddClass from "./AddClass";
 
 const StyledNavButton = styled(Button)`
   width: 100%;
@@ -78,7 +80,6 @@ const Dashboard = () => {
             display="flex"
             alignItems="flex-start"
             flexDirection={"column"}
-            fullWidth
             p={2}
           >
             <StyledNavButton component={Link} to="/dashboard">
@@ -97,11 +98,11 @@ const Dashboard = () => {
 
             <StyledNavButton
               component={Link}
-              to="/settings"
+              to="/dashboard/addclass"
               sx={{ "&.active": { color: "red" } }}
             >
               <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
-              Settings
+              Add class
             </StyledNavButton>
 
             <StyledNavButton
@@ -123,7 +124,7 @@ const Dashboard = () => {
             </StyledNavButton>
             <StyledNavButton
               component={Link}
-              to="/user"
+              to="/dashboard/allusers"
               sx={{ "&.active": { color: "red" } }}
             >
               <ManageAccountsIcon sx={{ fontSize: 24, pr: 2 }} />
@@ -134,14 +135,7 @@ const Dashboard = () => {
       </Grid>
 
       {/* Right Side - Content */}
-      <Grid item xs={6} md={9}>
-        <Typography variant="h6">Right Side</Typography>
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-          aliquet, tortor sed ullamcorper sollicitudin, lectus lorem maximus
-          nunc, at consectetur mauris est id neque.
-        </Typography>
-      </Grid>
+      <Outlet />
     </Grid>
   );
 };
