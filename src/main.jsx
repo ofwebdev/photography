@@ -23,9 +23,11 @@ import AuthProvider from "./provider/AuthProvider.jsx";
 import PopularClassesSection from "./components/Popular/PopularClassesSection.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import AllUser from "./components/Dashboard/AllUser.jsx";
-import AddClass from "./components/Dashboard/AddClass.jsx";
 import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
 import AdminRoute from "./PrivateRoute/AdminRoute.jsx";
+import AddClass from "./components/Dashboard/Instructor/AddClass.jsx";
+import MyClass from "./components/Dashboard/Instructor/Myclass.jsx";
+import AllClasses from "./components/Dashboard/AllClasses.jsx";
 
 const theme = createTheme({
   palette: {
@@ -91,6 +93,14 @@ const router = createBrowserRouter([
       {
         path: "addclass",
         element: <AddClass></AddClass>,
+      },
+      {
+        path: "myclass",
+        element: <MyClass></MyClass>,
+      },
+      {
+        path: "allclasses",
+        element: <AllClasses></AllClasses>,
       },
     ],
   },

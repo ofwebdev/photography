@@ -22,11 +22,8 @@ import {
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import useAxiosSecureInterceptor from "../../hooks/useAxiosSecureInterceptor";
-import useAdmin from "../../hooks/useAdmin";
 
 const AllUsers = () => {
-  // const [isAdmin, isAdminLoading, handleMakeRoleChange] = useAdmin();
-
   const [axiosSecure] = useAxiosSecureInterceptor();
   const { data: users = [], refetch } = useQuery(["users"], async () => {
     const res = await axiosSecure("/users");
@@ -43,7 +40,6 @@ const AllUsers = () => {
 
   const handleRoleSelection = (event) => {
     const selectedRole = event.target.value;
-    // handleMakeRoleChange(selectedRole);
 
     console.log(selectedRole);
 
