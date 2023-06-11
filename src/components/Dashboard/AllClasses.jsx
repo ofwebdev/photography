@@ -17,6 +17,10 @@ import {
   Menu,
   IconButton,
   MenuItem,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
@@ -24,10 +28,13 @@ import { MoreVert as MoreVertIcon } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import useAxiosSecureInterceptor from "../../hooks/useAxiosSecureInterceptor";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const AllClasses = () => {
   const [axiosSecure] = useAxiosSecureInterceptor();
-
+  const [status, setStatus] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const {
@@ -56,6 +63,38 @@ const AllClasses = () => {
     setAnchorEl(null);
   };
 
+  const handleStatusChange = (classId, newStatus) => {
+    setOpenDialog(true); // Open the dialog
+
+    // Update the status in the frontend
+    setStatus(newStatus);
+    fetch(`http://localhost:5000/class/${classId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: newStatus }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+
+        if (data.modifiedCount) {
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${selectedUser.name} role is now updated`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <Grid item xs={12} md={9} mt={10}>
       <List>
@@ -80,6 +119,15 @@ const AllClasses = () => {
               primary={classItem.email}
               secondary={classItem.instructor_name}
             />
+
+            <ListItemText
+              primary={classItem.status}
+              sx={{
+                backgroundColor: "#e0e0e0",
+                borderRadius: "10px",
+                p: 1,
+              }}
+            />
             <IconButton
               aria-controls="class-menu"
               aria-haspopup="true"
@@ -94,10 +142,42 @@ const AllClasses = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem onClick={handleMenuClose}>Pending</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Approved</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Denied</MenuItem>
+              <MenuItem
+                onClick={() => handleStatusChange(classItem._id, "Pending")}
+              >
+                Pending
+              </MenuItem>
+              <MenuItem
+                onClick={() => handleStatusChange(classItem._id, "Approved")}
+              >
+                Approved
+              </MenuItem>
+              <MenuItem
+                onClick={() => handleStatusChange(classItem._id, "Denied")}
+              >
+                Denied
+              </MenuItem>
             </Menu>
+
+            {/* Dialog for updating status */}
+            <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+              <DialogTitle>Update Status</DialogTitle>
+              <DialogContent>
+                <Typography>
+                  Are you sure you want to update the status to {status}?
+                </Typography>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+
+                <Button
+                  variant="contained"
+                  onClick={() => setOpenDialog(false)}
+                >
+                  Update
+                </Button>
+              </DialogActions>
+            </Dialog>
           </ListItem>
         ))}
       </List>
