@@ -14,8 +14,9 @@ function App() {
   return (
     <>
       <CssBaseline />
+
+      <AppBarHeader />
       <Container maxWidth="xl">
-        <AppBarHeader />
         <HeroSection />
         <Features />
         <CustomImageList />

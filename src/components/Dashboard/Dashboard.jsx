@@ -9,10 +9,14 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import EmailIcon from "@mui/icons-material/Email";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import PortraitIcon from "@mui/icons-material/Portrait";
 import styled from "@emotion/styled";
 import useAdmin from "../../hooks/useAdmin";
 import useInstructor from "../../hooks/useInstructor";
 import useStudent from "../../hooks/useStudent";
+import Loader from "../Loader/Loader";
 
 const StyledNavButton = styled(Button)`
   width: 100%;
@@ -30,7 +34,7 @@ const Dashboard = () => {
 
   if (isAdminLoading || isInstructorLoading || isStudentLoading) {
     // Loading state
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
@@ -133,7 +137,7 @@ const Dashboard = () => {
                 to="/dashboard/addclass"
                 sx={{ "&.active": { color: "red" } }}
               >
-                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                <AddBoxIcon sx={{ fontSize: 24, pr: 2 }} />
                 Add class
               </StyledNavButton>
 
@@ -142,8 +146,17 @@ const Dashboard = () => {
                 to="/dashboard/myclass"
                 sx={{ "&.active": { color: "red" } }}
               >
-                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                <AddPhotoAlternateIcon sx={{ fontSize: 24, pr: 2 }} />
                 My class
+              </StyledNavButton>
+
+              <StyledNavButton
+                component={Link}
+                to="/dashboard/profile"
+                sx={{ "&.active": { color: "red" } }}
+              >
+                <PortraitIcon sx={{ fontSize: 24, pr: 2 }} />
+                Profile
               </StyledNavButton>
             </Box>
           )}

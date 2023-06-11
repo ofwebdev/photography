@@ -10,6 +10,7 @@ import AppBarHeader from "../Navbar/AppBarHeader";
 import Footer from "../Footer/Footer";
 import { Container, CssBaseline } from "@mui/material";
 import { Link } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 export default function PopularClassesSection() {
   const [classes, setClasses] = useState([]);
@@ -34,7 +35,7 @@ export default function PopularClassesSection() {
   }, []);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Loader />;
   }
 
   if (error) {

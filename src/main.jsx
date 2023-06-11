@@ -28,6 +28,8 @@ import AdminRoute from "./PrivateRoute/AdminRoute.jsx";
 import AddClass from "./components/Dashboard/Instructor/AddClass.jsx";
 import MyClass from "./components/Dashboard/Instructor/Myclass.jsx";
 import AllClasses from "./components/Dashboard/AllClasses.jsx";
+import Profile from "./components/Dashboard/Instructor/Profile.jsx";
+import InstructorList from "./components/InstructorList/InstructorList";
 
 const theme = createTheme({
   palette: {
@@ -99,6 +101,10 @@ const router = createBrowserRouter([
         element: <MyClass></MyClass>,
       },
       {
+        path: "profile",
+        element: <Profile></Profile>,
+      },
+      {
         path: "allclasses",
         element: (
           <AdminRoute>
@@ -111,6 +117,10 @@ const router = createBrowserRouter([
   {
     path: "/classes",
     element: <PopularClassesSection />,
+  },
+  {
+    path: "/instructors",
+    element: <InstructorList />,
   },
   {
     path: "/login",
