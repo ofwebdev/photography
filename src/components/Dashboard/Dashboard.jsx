@@ -12,6 +12,7 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import styled from "@emotion/styled";
 import useAdmin from "../../hooks/useAdmin";
 import useInstructor from "../../hooks/useInstructor";
+import useStudent from "../../hooks/useStudent";
 
 const StyledNavButton = styled(Button)`
   width: 100%;
@@ -24,14 +25,10 @@ const StyledNavButton = styled(Button)`
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin, isAdminLoading] = useAdmin();
-  const [isInstructor, isInstructorLoading] = useInstructor(); // Set this based on the user's instructor status
+  const [isInstructor, isInstructorLoading] = useInstructor();
+  const [isStudent, isStudentLoading] = useStudent();
 
-  if (isAdminLoading) {
-    // Loading state
-    return <div>Loading...</div>;
-  }
-
-  if (isInstructorLoading) {
+  if (isAdminLoading || isInstructorLoading || isStudentLoading) {
     // Loading state
     return <div>Loading...</div>;
   }
@@ -148,6 +145,38 @@ const Dashboard = () => {
                 <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
                 My class
               </StyledNavButton>
+            </Box>
+          )}
+
+          {isStudent && (
+            <Box
+              display="flex"
+              alignItems="flex-start"
+              flexDirection="column"
+              p={2}
+            >
+              <StyledNavButton component={Link} to="/dashboard">
+                <SpaceDashboardIcon sx={{ fontSize: 24, pr: 2 }} />
+                Dashboard
+              </StyledNavButton>
+
+              {/* <StyledNavButton
+                component={Link}
+                to="/dashboard/addclass"
+                sx={{ "&.active": { color: "red" } }}
+              >
+                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                Add class
+              </StyledNavButton>
+
+              <StyledNavButton
+                component={Link}
+                to="/dashboard/myclass"
+                sx={{ "&.active": { color: "red" } }}
+              >
+                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                My class
+              </StyledNavButton> */}
             </Box>
           )}
         </Box>

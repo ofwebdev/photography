@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -9,13 +9,26 @@ import {
   Typography,
   CardActions,
   Button,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+  Menu,
+  IconButton,
+  MenuItem,
 } from "@mui/material";
+
+import { MoreVert as MoreVertIcon } from "@mui/icons-material";
+
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import useAxiosSecureInterceptor from "../../hooks/useAxiosSecureInterceptor";
 
 const AllClasses = () => {
   const [axiosSecure] = useAxiosSecureInterceptor();
+
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const {
     data: classes = [],
@@ -35,33 +48,59 @@ const AllClasses = () => {
     return <Typography>Error fetching classes.</Typography>;
   }
 
-  console.log(classes);
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Grid item xs={12} md={9} mt={10}>
-      {classes.map((classItem) => (
-        <Grid item key={classItem._id} xs={12} sm={6} md={4} lg={3}>
-          <Card sx={{ maxWidth: 345 }}>
-            <CardMedia component="img" height="140" image={classItem.image} />
-            <CardContent sx={{ pb: 0 }}>
-              <Typography gutterBottom variant="h5" component="div">
-                {classItem.class_name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Price : ${classItem.price}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Seats : {classItem.seats}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Button component={Link} to={"/details"} size="small">
-                Learn More
-              </Button>
-            </CardActions>
-          </Card>
-        </Grid>
-      ))}
+      <List>
+        {classes.map((classItem) => (
+          <ListItem
+            key={classItem._id}
+            sx={{
+              backgroundColor: "#f2f2f2",
+              borderRadius: "10px",
+              mb: 3,
+            }}
+          >
+            <ListItemAvatar>
+              <Avatar alt={classItem.class_name} src={classItem.image} />
+            </ListItemAvatar>
+            <ListItemText
+              primary={classItem.class_name}
+              secondary={`Price: $${classItem.price}, Seats: ${classItem.seats}`}
+            />
+
+            <ListItemText
+              primary={classItem.email}
+              secondary={classItem.instructor_name}
+            />
+            <IconButton
+              aria-controls="class-menu"
+              aria-haspopup="true"
+              onClick={handleMenuOpen}
+            >
+              <MoreVertIcon />
+            </IconButton>
+            <Menu
+              id="class-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={handleMenuClose}>Pending</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Approved</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Denied</MenuItem>
+            </Menu>
+          </ListItem>
+        ))}
+      </List>
     </Grid>
   );
 };
