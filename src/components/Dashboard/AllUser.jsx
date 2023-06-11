@@ -18,6 +18,7 @@ import {
   Button,
   Select,
   MenuItem,
+  LinearProgress,
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,7 +26,11 @@ import useAxiosSecureInterceptor from "../../hooks/useAxiosSecureInterceptor";
 
 const AllUsers = () => {
   const [axiosSecure] = useAxiosSecureInterceptor();
-  const { data: users = [], refetch } = useQuery(["users"], async () => {
+  const {
+    data: users = [],
+    isLoading,
+    refetch,
+  } = useQuery(["users"], async () => {
     const res = await axiosSecure("/users");
     return res.data;
   });
@@ -37,6 +42,14 @@ const AllUsers = () => {
     setSelectedUser(user);
     setOpen(true);
   };
+
+  if (isLoading) {
+    return (
+      <Box sx={{ width: "30%", margin: "auto" }}>
+        <LinearProgress />
+      </Box>
+    );
+  }
 
   const handleRoleSelection = (event) => {
     const selectedRole = event.target.value;

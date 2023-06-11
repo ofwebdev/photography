@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 
 const BorderBottom = styled("div")`
   border-bottom: 2px solid #ccc;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   padding: 30px 200px;
   @media (max-width: 600px) {
     padding: 10px 20px;
@@ -14,12 +14,13 @@ const BorderBottom = styled("div")`
 
 const Paragraph = styled(Typography)`
   font-size: 20px;
+  margin-bottom: 20px;
 `;
 
 export default function Learn() {
   return (
     <BorderBottom>
-      <Box mb={8}>
+      <Box mb={5}>
         <SectionTitle title={`Learn Photography Properly`} />
       </Box>
       <Paragraph mb={2}>

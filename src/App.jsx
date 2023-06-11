@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer";
 import { CssBaseline } from "@mui/material";
 import CustomImageList from "./components/Gallery/ImgMediaCard";
 import Container from "@mui/material/Container";
+import Newsletter from "./components/NewsLetter/NewsLetter";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Features />
         <CustomImageList />
         <Learn />
+        <Newsletter />
       </Container>
       <Footer />
     </>

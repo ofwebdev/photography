@@ -43,19 +43,21 @@ const AddClass = () => {
             image: imgURL,
           };
           console.log(newItem);
-          axiosSecure.post("/class", newItem).then((data) => {
-            console.log("posting after new class", data.data);
-            if (data.data.insertedId) {
-              reset();
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Item added successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-          });
+          axiosSecure
+            .post("/class", { ...newItem, status: "Pending" })
+            .then((data) => {
+              console.log("posting after new class", data.data);
+              if (data.data.insertedId) {
+                reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Item added successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            });
         }
       });
   };

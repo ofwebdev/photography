@@ -9,6 +9,7 @@ import {
   Typography,
   CardActions,
   Button,
+  LinearProgress,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecureInterceptor from "../../../hooks/useAxiosSecureInterceptor";
@@ -28,21 +29,69 @@ const MyClass = () => {
   });
 
   if (isLoading) {
-    return <Typography>Loading...</Typography>;
+    return (
+      <Box sx={{ width: "50%", margin: "auto" }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   if (isError) {
     return <Typography>Error fetching classes.</Typography>;
   }
 
-  console.log(classes);
+  const statusOpacities = {
+    Approved: 1,
+    Pending: 0.6,
+    Denied: 0.3,
+  };
 
   return (
-    <Grid item xs={12} md={9} mt={10}>
+    <Grid container spacing={2} xs={12} md={9} mt={10}>
       {classes.map((classItem) => (
-        <Grid item key={classItem._id} xs={12} sm={6} md={4} lg={3}>
+        <Grid
+          item
+          key={classItem._id}
+          xs={12}
+          sm={6}
+          md={4}
+          sx={{
+            opacity: statusOpacities[classItem.status] || 1,
+          }}
+        >
           <Card sx={{ maxWidth: 345 }}>
-            <CardMedia component="img" height="140" image={classItem.image} />
+            <CardMedia
+              component="div"
+              sx={{
+                position: "relative",
+                height: "140px",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={classItem.image}
+                alt={classItem.class_name}
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  position: "absolute",
+                  bottom: "0",
+                  left: "0",
+                  padding: "8px",
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  color: "white",
+                }}
+              >
+                Status : {classItem.status}
+              </Typography>
+            </CardMedia>
+
             <CardContent sx={{ pb: 0 }}>
               <Typography gutterBottom variant="h5" component="div">
                 {classItem.class_name}

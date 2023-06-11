@@ -5,7 +5,7 @@ import SectionTitle from "../SectionTitle/SectionTitle";
 function Features() {
   return (
     <Box py={8}>
-      <Box mb={8}>
+      <Box mb={5}>
         <SectionTitle title="World-Class Photography Courses that Fit Your Budget" />
       </Box>
       <Grid container spacing={2}>

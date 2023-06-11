@@ -100,7 +100,11 @@ const router = createBrowserRouter([
       },
       {
         path: "allclasses",
-        element: <AllClasses></AllClasses>,
+        element: (
+          <AdminRoute>
+            <AllClasses />
+          </AdminRoute>
+        ),
       },
     ],
   },

@@ -21,6 +21,7 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  LinearProgress,
 } from "@mui/material";
 
 import { MoreVert as MoreVertIcon } from "@mui/icons-material";
@@ -30,6 +31,7 @@ import { Link } from "react-router-dom";
 import useAxiosSecureInterceptor from "../../hooks/useAxiosSecureInterceptor";
 import axios from "axios";
 import Swal from "sweetalert2";
+import FeedbackPopup from "./FeedbackPopup";
 
 const AllClasses = () => {
   const [axiosSecure] = useAxiosSecureInterceptor();
@@ -48,7 +50,11 @@ const AllClasses = () => {
   });
 
   if (isLoading) {
-    return <Typography>Loading...</Typography>;
+    return (
+      <Box sx={{ width: "50%", margin: "auto" }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   if (isError) {
@@ -84,7 +90,7 @@ const AllClasses = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `${selectedUser.name} role is now updated`,
+            title: `${status} is now updated`,
             showConfirmButton: false,
             timer: 1500,
           });
@@ -125,8 +131,18 @@ const AllClasses = () => {
               sx={{
                 backgroundColor: "#e0e0e0",
                 borderRadius: "10px",
+                display: "inline-block",
                 p: 1,
               }}
+            />
+            <FeedbackPopup
+              buttonText="Send Feedback"
+              iconButton={true}
+              onSubmit={(feedback) => {
+                // Handle the feedback submission here
+                console.log(feedback);
+              }}
+              id={classItem._id}
             />
             <IconButton
               aria-controls="class-menu"
