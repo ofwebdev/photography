@@ -62,7 +62,6 @@ const Classes = () => {
           "http://localhost:5000/select",
           classItem
         );
-        console.log(result.data); // log the response if needed
         if (result.data.alreadyExists) {
           setDialogMessage("Item already exists in selection");
         } else {
@@ -75,6 +74,8 @@ const Classes = () => {
         setOpenDialog(true);
       }
     } else {
+      setDialogMessage("You need to login first");
+      setOpenDialog(true);
       navigate("/login", { state: { from: location } });
     }
   };
