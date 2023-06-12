@@ -14,6 +14,7 @@ import MyClass from "../Dashboard/Instructor/MyClass.jsx";
 import AllClasses from "../Dashboard/AllClasses.jsx";
 import Profile from "../Dashboard/Instructor/Profile.jsx";
 import SelectedItems from "../Dashboard/Student/SelectedItems.jsx";
+import Pay from "../Dashboard/Payment/Pay.jsx";
 
 // Private Route
 import PrivateRoute from "../../PrivateRoute/PrivateRoute.jsx";
@@ -59,6 +60,11 @@ export const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile></Profile>,
+      },
+
+      {
+        path: "payment",
+        element: <Pay />,
       },
       {
         path: "allclasses",

@@ -158,9 +158,9 @@ const SelectedItems = () => {
                     </Box>
                   </Box>
                 </CardContent>
-                <CardActions sx={{ ml: 1, mb: 1 }}>
+                {/* <CardActions sx={{ ml: 1, mb: 1 }}>
                   <Button variant="contained">Enroll</Button>
-                </CardActions>
+                </CardActions> */}
               </Card>
             </Grid>
           ))}

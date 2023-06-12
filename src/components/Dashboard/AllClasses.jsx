@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import {
   Box,
   Card,
-  CardContent,
-  CardMedia,
-  Container,
   Grid,
   Typography,
-  CardActions,
   Button,
   List,
   ListItem,
@@ -69,11 +65,8 @@ const AllClasses = () => {
     setAnchorEl(null);
   };
 
-  const handleStatusChange = (classId, newStatus) => {
-    setOpenDialog(true); // Open the dialog
-
-    // Update the status in the frontend
-    setStatus(newStatus);
+  const updateClassStatus = (classId, newStatus) => {
+    // Perform the API request to update the class status
     fetch(`http://localhost:5000/class/${classId}`, {
       method: "PATCH",
       headers: {
@@ -159,17 +152,17 @@ const AllClasses = () => {
               onClose={handleMenuClose}
             >
               <MenuItem
-                onClick={() => handleStatusChange(classItem._id, "Pending")}
+                onClick={() => updateClassStatus(classItem._id, "Pending")}
               >
                 Pending
               </MenuItem>
               <MenuItem
-                onClick={() => handleStatusChange(classItem._id, "Approved")}
+                onClick={() => updateClassStatus(classItem._id, "Approved")}
               >
                 Approved
               </MenuItem>
               <MenuItem
-                onClick={() => handleStatusChange(classItem._id, "Denied")}
+                onClick={() => updateClassStatus(classItem._id, "Denied")}
               >
                 Denied
               </MenuItem>
@@ -188,7 +181,7 @@ const AllClasses = () => {
 
                 <Button
                   variant="contained"
-                  onClick={() => setOpenDialog(false)}
+                  onClick={() => updateClassStatus(selectedClassId, status)}
                 >
                   Update
                 </Button>
