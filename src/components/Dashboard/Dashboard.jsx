@@ -1,22 +1,25 @@
 import React, { useContext } from "react";
-import { Avatar, Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  CssBaseline,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import { AccountCircle } from "@mui/icons-material";
 import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
-import PersonIcon from "@mui/icons-material/Person";
-import SettingsIcon from "@mui/icons-material/Settings";
-import EmailIcon from "@mui/icons-material/Email";
-import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import AddBoxIcon from "@mui/icons-material/AddBox";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import PortraitIcon from "@mui/icons-material/Portrait";
 import styled from "@emotion/styled";
 import useAdmin from "../../hooks/useAdmin";
 import useInstructor from "../../hooks/useInstructor";
 import useStudent from "../../hooks/useStudent";
 import Loader from "../Loader/Loader";
+import SchoolIcon from "@mui/icons-material/School";
+import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
+import PaymentIcon from "@mui/icons-material/Payment";
 
 const StyledNavButton = styled(Button)`
   width: 100%;
@@ -178,7 +181,7 @@ const Dashboard = () => {
                 to="/dashboard/select"
                 sx={{ "&.active": { color: "red" } }}
               >
-                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                <SchoolIcon sx={{ fontSize: 24, pr: 2 }} />
                 Selected Class
               </StyledNavButton>
 
@@ -187,8 +190,17 @@ const Dashboard = () => {
                 to="/dashboard/enroll"
                 sx={{ "&.active": { color: "red" } }}
               >
-                <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
+                <SubscriptionsIcon sx={{ fontSize: 24, pr: 2 }} />
                 Enrolled Classes
+              </StyledNavButton>
+
+              <StyledNavButton
+                component={Link}
+                to="/dashboard/payment-history"
+                sx={{ "&.active": { color: "red" } }}
+              >
+                <PaymentIcon sx={{ fontSize: 24, pr: 2 }} />
+                Payment History
               </StyledNavButton>
             </Box>
           )}

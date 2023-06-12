@@ -24,7 +24,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 const ClassCard = ({ classItem }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
-  const { class_name, image, price, seats, _id, email } = classItem;
+  const { class_name, image, price, seats, _id, instructor_name } = classItem;
   const [, refetch] = useSelect();
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,8 +37,10 @@ const ClassCard = ({ classItem }) => {
       const selectItem = {
         menuItemId: _id,
         class_name,
+        instructor_name,
         image,
         price,
+        seats,
         email: user.email,
       };
       fetch("http://localhost:5000/select", {
