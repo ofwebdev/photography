@@ -173,23 +173,23 @@ const Dashboard = () => {
                 Dashboard
               </StyledNavButton>
 
-              {/* <StyledNavButton
+              <StyledNavButton
                 component={Link}
-                to="/dashboard/addclass"
+                to="/dashboard/select"
                 sx={{ "&.active": { color: "red" } }}
               >
                 <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
-                Add class
+                Selected Class
               </StyledNavButton>
 
               <StyledNavButton
                 component={Link}
-                to="/dashboard/myclass"
+                to="/dashboard/enroll"
                 sx={{ "&.active": { color: "red" } }}
               >
                 <SettingsIcon sx={{ fontSize: 24, pr: 2 }} />
-                My class
-              </StyledNavButton> */}
+                Enrolled Classes
+              </StyledNavButton>
             </Box>
           )}
         </Box>

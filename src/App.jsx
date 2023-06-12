@@ -1,5 +1,3 @@
-import { useState } from "react";
-import "./App.css";
 import AppBarHeader from "./components/Navbar/AppBarHeader";
 import HeroSection from "./components/Hero/HeroSection";
 import Learn from "./components/Section/Learn";
@@ -14,15 +12,16 @@ function App() {
   return (
     <>
       <CssBaseline />
-
       <AppBarHeader />
+      <HeroSection />
+
       <Container maxWidth="xl">
-        <HeroSection />
         <Features />
         <CustomImageList />
         <Learn />
         <Newsletter />
       </Container>
+
       <Footer />
     </>
   );

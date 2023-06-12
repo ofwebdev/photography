@@ -20,7 +20,7 @@ const Newsletter = () => {
     <Box my={10}>
       <SectionTitle title="Subscribe our news letter" />
       <Box
-        component={"from"}
+        component={"form"}
         onSubmit={handleSubmit}
         sx={{
           margin: "0 auto",
@@ -40,6 +40,7 @@ const Newsletter = () => {
           value={email}
           onChange={handleEmailChange}
           required
+          placeholder="Enter your Email"
           sx={{
             width: "400px",
             "@media (max-width: 600px)": {
