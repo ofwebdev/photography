@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Box,
   Card,
@@ -19,17 +19,23 @@ import {
 import NearMeIcon from "@mui/icons-material/NearMe";
 import DescriptionIcon from "@mui/icons-material/Description";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import useAxiosSecureInterceptor from "../../hooks/useAxiosSecureInterceptor";
 import AppBarHeader from "../Navbar/AppBarHeader";
 import Footer from "../Footer/Footer";
 import axios from "axios";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Classes = () => {
   const [axiosSecure] = useAxiosSecureInterceptor();
   const [openDialog, setOpenDialog] = useState(false);
   const [dialogMessage, setDialogMessage] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { user } = useContext(AuthContext);
 
   const {
     data: classes = [],
@@ -50,22 +56,26 @@ const Classes = () => {
   }
 
   const handleAddToSelect = async (classItem) => {
-    try {
-      const result = await axios.post(
-        "http://localhost:5000/select",
-        classItem
-      );
-      console.log(result.data); // log the response if needed
-      if (result.data.alreadyExists) {
-        setDialogMessage("Item already exists in selection");
-      } else {
-        setDialogMessage("Item successfully selected");
+    if (user && user.email) {
+      try {
+        const result = await axios.post(
+          "http://localhost:5000/select",
+          classItem
+        );
+        console.log(result.data); // log the response if needed
+        if (result.data.alreadyExists) {
+          setDialogMessage("Item already exists in selection");
+        } else {
+          setDialogMessage("Item successfully selected");
+        }
+        setOpenDialog(true);
+      } catch (error) {
+        console.error("Error adding class to select:", error);
+        setDialogMessage("Failed to select item");
+        setOpenDialog(true);
       }
-      setOpenDialog(true);
-    } catch (error) {
-      console.error("Error adding class to select:", error);
-      setDialogMessage("Failed to select item");
-      setOpenDialog(true);
+    } else {
+      navigate("/login", { state: { from: location } });
     }
   };
 
