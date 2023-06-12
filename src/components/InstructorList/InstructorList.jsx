@@ -22,7 +22,7 @@ function InstructorList() {
   useEffect(() => {
     // Fetch instructor IDs from the backend API
     axios
-      .get("http://localhost:5000/instructors")
+      .get("https://backend-pi-ten.vercel.app/instructors")
       .then((response) => {
         // Update the state with the fetched instructor IDs
         setInstructors(response.data);

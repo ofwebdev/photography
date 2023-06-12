@@ -50,7 +50,7 @@ const SelectedItems = () => {
 
   const handleConfirmDelete = () => {
     if (deleteItem) {
-      fetch(`http://localhost:5000/select/${deleteItem._id}`, {
+      fetch(`https://backend-pi-ten.vercel.app/select/${deleteItem._id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

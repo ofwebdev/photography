@@ -15,6 +15,7 @@ import AllClasses from "../Dashboard/AllClasses.jsx";
 import Profile from "../Dashboard/Instructor/Profile.jsx";
 import SelectedItems from "../Dashboard/Student/SelectedItems.jsx";
 import Pay from "../Dashboard/Payment/Pay.jsx";
+import PaymentHistory from "../Dashboard/Payment/PaymentHistory.jsx";
 
 // Private Route
 import PrivateRoute from "../../PrivateRoute/PrivateRoute.jsx";
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
       {
         path: "payment",
         element: <Pay />,
+      },
+      {
+        path: "payment-history",
+        element: <PaymentHistory />,
       },
       {
         path: "allclasses",

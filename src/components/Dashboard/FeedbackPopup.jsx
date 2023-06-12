@@ -28,7 +28,7 @@ const FeedbackPopup = ({ buttonText, iconButton, onSubmit, id }) => {
   };
 
   const handleSubmit = () => {
-    fetch(`http://localhost:5000/class/${id}`, {
+    fetch(`https://backend-pi-ten.vercel.app/class/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

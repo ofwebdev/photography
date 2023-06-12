@@ -43,7 +43,7 @@ const ClassCard = ({ classItem }) => {
         seats,
         email: user.email,
       };
-      fetch("http://localhost:5000/select", {
+      fetch("https://backend-pi-ten.vercel.app/select", {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",

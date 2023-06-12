@@ -71,13 +71,16 @@ const AllUsers = () => {
         return;
       }
 
-      fetch(`http://localhost:5000/users/role/${selectedUser._id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ role: selectedRole }), // Use selectedRole instead of role
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      fetch(
+        `https://backend-pi-ten.vercel.app/users/role/${selectedUser._id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ role: selectedRole }), // Use selectedRole instead of role
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

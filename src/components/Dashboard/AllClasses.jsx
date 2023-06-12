@@ -67,7 +67,7 @@ const AllClasses = () => {
 
   const updateClassStatus = (classId, newStatus) => {
     // Perform the API request to update the class status
-    fetch(`http://localhost:5000/class/${classId}`, {
+    fetch(`https://backend-pi-ten.vercel.app/class/${classId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
