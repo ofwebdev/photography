@@ -6,6 +6,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import CopyrightIcon from "@mui/icons-material/Copyright";
 import { Link } from "react-router-dom";
 
 const FooterBg = styled("footer")(({ theme }) => ({
@@ -94,8 +95,18 @@ const Footer = () => {
             <TwitterIcon />
             <LinkedInIcon />
           </Box>
-          <Typography variant="body2" color="text.secondary">
-            © {new Date().getFullYear()} Your Website. All rights reserved.
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 1,
+            }}
+          >
+            <CopyrightIcon fontSize="20" /> {new Date().getFullYear()} Your
+            Website. All rights reserved.
           </Typography>
         </Box>
       </FooterBg>

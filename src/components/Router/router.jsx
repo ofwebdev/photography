@@ -1,19 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import App from "../../App.jsx";
-import NotFound from "../../pages/Restricted/NotFound.jsx";
 import Login from "../../pages/Login/Login.jsx";
 import Register from "../../pages/Register/Register.jsx";
-import PopularClassesSection from "../Popular/PopularClassesSection.jsx";
+import InstructorList from "../InstructorList/InstructorList";
+import Classes from "../Popular/Classes.jsx";
+
+// Dashboard Route
 import Dashboard from "../Dashboard/Dashboard.jsx";
 import AllUser from "../Dashboard/AllUser.jsx";
-import PrivateRoute from "../../PrivateRoute/PrivateRoute.jsx";
-import AdminRoute from "../../PrivateRoute/AdminRoute.jsx";
 import AddClass from "../Dashboard/Instructor/AddClass.jsx";
 import MyClass from "../Dashboard/Instructor/MyClass.jsx";
 import AllClasses from "../Dashboard/AllClasses.jsx";
 import Profile from "../Dashboard/Instructor/Profile.jsx";
-import InstructorList from "../InstructorList/InstructorList";
+
+// Private Route
+import PrivateRoute from "../../PrivateRoute/PrivateRoute.jsx";
+import AdminRoute from "../../PrivateRoute/AdminRoute.jsx";
+
+// 404 page
+import NotFound from "../../pages/Restricted/NotFound.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -61,7 +67,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/classes",
-    element: <PopularClassesSection />,
+    element: <Classes />,
   },
   {
     path: "/instructors",
