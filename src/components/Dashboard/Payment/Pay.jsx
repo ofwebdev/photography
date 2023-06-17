@@ -4,10 +4,12 @@ import { Elements } from "@stripe/react-stripe-js";
 import SectionTitle from "../../SectionTitle/SectionTitle";
 import useSelect from "../../../hooks/useSelect";
 import { Box, Paper, Typography } from "@mui/material";
+import useAuth from "../../../hooks/useAuth";
 
 // TODO: provide publishable Key
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 const Pay = () => {
+  // const [user] = useAuth()
   const [select] = useSelect();
   const total = select.reduce((sum, item) => sum + item.price, 0);
   const price = parseFloat(total.toFixed(2));

@@ -221,14 +221,14 @@ function Register() {
                 </Typography>
               )}
             </Box>
-            <Typography
+            {/* <Typography
               variant="subtitle2"
               mt={3}
               display="flex"
               justifyContent="flex-end"
             >
               <Link to="/forgot-password">Forgot password?</Link>
-            </Typography>
+            </Typography> */}
             <Box mt={2}>
               <Button
                 type="submit"

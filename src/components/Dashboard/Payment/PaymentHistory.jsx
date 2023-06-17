@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import styled from "@emotion/styled";
+import useAuth from "../../../hooks/useAuth";
 
 const useStyles = styled((theme) => ({
   listItem: {
@@ -24,6 +25,7 @@ const useStyles = styled((theme) => ({
 }));
 
 const PaymentHistory = () => {
+  const [user] = useAuth();
   const classes = useStyles();
   const [paymentHistory, setPaymentHistory] = useState([]);
 
@@ -34,7 +36,12 @@ const PaymentHistory = () => {
   const fetchPaymentHistory = async () => {
     try {
       const response = await axios.get(
-        "https://backend-pi-ten.vercel.app/payment-history"
+        "https://backend-pi-ten.vercel.app/payment-history",
+        {
+          params: {
+            email: user.email,
+          },
+        }
       );
       setPaymentHistory(response.data);
       console.log(response.data);

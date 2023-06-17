@@ -61,6 +61,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const MOBILE_WIDTH = 280;
+
 export default function AppBarHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -117,6 +119,8 @@ export default function AppBarHeader() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      <Box sx={{ width: MOBILE_WIDTH }} />
+
       <MenuItem component={Link} to={"/profile"} onClick={handleMenuClose}>
         {user ? (
           <Typography>{user.displayName}</Typography>
@@ -150,6 +154,7 @@ export default function AppBarHeader() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+      <Box sx={{ width: MOBILE_WIDTH }}></Box>
       <MenuItem component={Link} to="/" color="inherit">
         Home
       </MenuItem>

@@ -42,7 +42,7 @@ export default function ImgMediaCard() {
       <Grid container spacing={2}>
         {items.map((item) => (
           <Grid item key={item.id} xs={12} sm={6} md={4} lg={3}>
-            <Card sx={{ maxWidth: 345, p: 1 }}>
+            <Card sx={{ maxWidth: "100%", p: 1 }}>
               <CardMedia
                 component="img"
                 alt={item.title}
