@@ -1,28 +1,29 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import App from "../../App.jsx";
-import Login from "../../pages/Login/Login.jsx";
-import Register from "../../pages/Register/Register.jsx";
-import InstructorList from "../InstructorList/InstructorList";
-import Classes from "../Popular/Classes.jsx";
-
+import App from "../App";
+import Login from "../pages/Login/Login.jsx";
+import Register from "../pages/Register/Register.jsx";
+import InstructorList from "../components/InstructorList/InstructorList";
+import Classes from "../components/Popular/Classes.jsx";
 // Dashboard Route
-import Dashboard from "../Dashboard/Dashboard.jsx";
-import AllUser from "../Dashboard/AllUser.jsx";
-import AddClass from "../Dashboard/Instructor/AddClass.jsx";
-import MyClass from "../Dashboard/Instructor/MyClass.jsx";
-import AllClasses from "../Dashboard/AllClasses.jsx";
-import Profile from "../Dashboard/Instructor/Profile.jsx";
-import SelectedItems from "../Dashboard/Student/SelectedItems.jsx";
-import Pay from "../Dashboard/Payment/Pay.jsx";
-import PaymentHistory from "../Dashboard/Payment/PaymentHistory.jsx";
+// import Dashboard from "../Dashboard/Dashboard.jsx";
+import AllUser from "../components/Dashboard/AllUser.jsx";
+import AddClass from "../components/Dashboard/Instructor/AddClass.jsx";
+import MyClass from "../components/Dashboard/Instructor/MyClass.jsx";
+import AllClasses from "../components/Dashboard/AllClasses.jsx";
+import Profile from "../components/Dashboard/Instructor/Profile.jsx";
+import SelectedItems from "../components/Dashboard/Student/SelectedItems.jsx";
+import Pay from "../components/Dashboard/Payment/Pay.jsx";
+import PaymentHistory from "../components/Dashboard/Payment/PaymentHistory.jsx";
 
 // Private Route
-import PrivateRoute from "../../PrivateRoute/PrivateRoute.jsx";
-import AdminRoute from "../../PrivateRoute/AdminRoute.jsx";
+import PrivateRoute from "../PrivateRoute/PrivateRoute.jsx";
+import AdminRoute from "../PrivateRoute/AdminRoute.jsx";
 
 // 404 page
-import NotFound from "../../pages/Restricted/NotFound.jsx";
+import NotFound from "../pages/Restricted/NotFound.jsx";
+import DashboardLayout from "../layout/dashboard/DashboardLayout.jsx";
+import DashboardAppPage from "../layout/pages/DashboardAppPage.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -33,11 +34,16 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <PrivateRoute>
-        <Dashboard />
+        <DashboardLayout />
       </PrivateRoute>
     ),
 
     children: [
+      {
+        // path: "app",
+        element: <DashboardAppPage />,
+        index: true,
+      },
       {
         path: "allusers",
         element: (

@@ -7,8 +7,12 @@ import Newsletter from "./components/NewsLetter/NewsLetter";
 import Footer from "./components/Footer/Footer";
 
 import { CssBaseline, Container } from "@mui/material";
+import { alpha, useTheme } from "@mui/material/styles";
 
 function App() {
+  const theme = useTheme();
+  console.log(theme);
+  console.log(alpha);
   return (
     <>
       <CssBaseline />

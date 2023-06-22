@@ -2,6 +2,7 @@ import { createTheme } from "@mui/material/styles";
 
 export const theme = createTheme({
   palette: {
+    common: { black: "#000", white: "#fff" },
     mode: localStorage.getItem("darkMode") === "dark" ? "dark" : "light",
     primary: {
       main: "#f44336", // Red color for primary elements
@@ -35,6 +36,6 @@ export const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 12,
   },
 });
